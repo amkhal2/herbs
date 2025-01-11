@@ -1,4 +1,7 @@
 
+.searching {
+	background-color: green;
+}
 h2 {
 	text-align: center;
 }
@@ -32,10 +35,6 @@ table.details tr:nth-child(even) {
   color: black
 }
 
-.arabic {
-	direction: rtl;
-}
-
 .clicked {
 	background-color:yellow;
 }
@@ -51,7 +50,7 @@ table.details tr:nth-child(even) {
 }
 
 textarea, input[id='speaker'] {
-	direction: rtl;
+	direction: ltr;
 }
 
 input, textarea, button, select, label {

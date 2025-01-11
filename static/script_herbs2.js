@@ -11,7 +11,7 @@ var elSearch = document.getElementById('search'); // search bar
 window.addEventListener('load', function(){
 		// Make GET Request to obtain Speakers from db
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET', '/selectBox', true);
+		xhr.open('GET', '/selectBox2', true);
 		xhr.send();
 		
 		// Process the response
@@ -40,7 +40,7 @@ herbBtn.addEventListener('click', function(){
 	var selectedElement = herbsSelectBox.options[herbsSelectBox.selectedIndex].textContent;
 	console.log(selectedElement);
 	
-	var toServer = JSON.stringify({ 'herb': selectedElement, 'page': 'home' });
+	var toServer = JSON.stringify({ 'herb': selectedElement, 'page': 'herbs2' });
 	
 	// Make POST request to query database with selected "herb"
 	var xhr = new XMLHttpRequest();
@@ -63,8 +63,14 @@ herbBtn.addEventListener('click', function(){
 			}
 			content += '</ul>';
 			
-			content += '<h3>Toxicity of ' + data['res'][0][1] + '</h3>';
-			content += '<p>' + data['res'][0][4] + '</p>';
+			content += '<h3>Safety/Toxicity of ' + data['res'][0][1] + '</h3>';
+			
+			content += '<ul>';
+			for (var i=0; i < data['res'][0][4].length; i++) {
+				content += '<li>' + data['res'][0][4][i] + '</li>';
+			}
+			content += '</ul>';
+			
 			
 			msg.innerHTML = content;
 			msg.scrollIntoView(); // make the msg DIV visible to the user 
@@ -81,7 +87,7 @@ herbBtn.addEventListener('click', function(){
 
 elSearch.addEventListener('keyup', function(){
 	var toServer = JSON.stringify({
-		'input': elSearch.value, 'page':'home'	});
+		'input': elSearch.value, 'page': 'herbs2' });
 	
 	// Make the request
 	var xhr = new XMLHttpRequest();
@@ -102,18 +108,25 @@ elSearch.addEventListener('keyup', function(){
 				for (var i=0; i < data['res'].length; i++){
 					content += '<tr> <td>' + '<a href= "#" id="' + data['res'][i][0] + '">' + data['res'][i][1];
 					content += ' (' + data['res'][i][2] + ') </a></td>';
-					content += ' <td>'
 					
 					// creating the herb benefits bullets inside table cell
+					content += ' <td>'
 					content += '<ul>';
 					for (var x=0; x < data['res'][i][3].length; x++) {
 						content += '<li>' + data['res'][i][3][x] + '</li>';
 					}
 					content += '</ul>';
-					
 					content += '</td>';
-					content += ' <td>' + data['res'][i][4] + '</td> </tr>';
 					
+					// creating the herb toxicity bullets inside table cell
+					content += ' <td>'
+					content += '<ul>';
+					for (var x=0; x < data['res'][i][4].length; x++) {
+						content += '<li>' + data['res'][i][4][x] + '</li>';
+					}
+					content += '</ul>';
+					content += '</td>';
+						
 				}
 
 				
@@ -148,7 +161,7 @@ msg.addEventListener('click', function(e){
 						console.log(id);
 												
 						// Send "id" via POST request to server
-						var toServer = JSON.stringify({"id": id, "page":"home"})
+						var toServer = JSON.stringify({"id": id, "page":"herb2"})
 						
 						var xhr = new XMLHttpRequest();
 						xhr.open('POST', '/show_more', true);
@@ -170,8 +183,12 @@ msg.addEventListener('click', function(e){
 								}
 								content += '</ul>';
 								
-								content += '<h3>Toxicity of ' + data['res'][0] + '</h3>';
-								content += '<p>' + data['res'][3] + '</p>';
+								content += '<h3>Safety/Toxicity of ' + data['res'][0] + '</h3>';
+								content += '<ul>';
+								for (var i=0; i < data['res'][3].length; i++) {
+									content += '<li>' + data['res'][3][i] + '</li>';
+								}
+								content += '</ul>';
 							
 								elShow_more.innerHTML = content;
 								 

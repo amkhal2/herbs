@@ -7,7 +7,8 @@
 	
 	<body>
 		<div class='header'>
-			<a href='{{ url_for("index") }}'>Home</a>
+			<a href='{{ url_for("index") }}'>100 Plants That Heal</a>
+			<a href='{{ url_for("herbs2") }}'>The New Healing Herbs - 135 Herbs</a>
 			<a href='{{ url_for("manage_record") }}'>Manage Record</a>
 		</div>
 						
@@ -23,29 +24,14 @@
 			
 			<input type = "text" id="db_id" placeholder="id"> 
 			<br/><br/>
-			<input type = "text" id="ch_no" placeholder="Chapter #"> 
+			<input type = "text" id="herbName" placeholder="Herb Name"> 
 			<br/><br/>
-			<textarea id="ch_title" placeholder="Chapter Title" cols="80"></textarea> 
+			<input type = "text" id="binomialName" placeholder="Binomial Name"> 
 			<br/><br/>
-			<input type = "text" id="speaker" placeholder="speaker"> 
+			<textarea id="benefits" placeholder="benefits" cols="100" rows="15"></textarea> 
 			<br/><br/>
-			<textarea id="content" placeholder="content" cols="100" rows="15"></textarea> 
-			<br/><br/>
-			
-			<label for="speaker">Speaker</label>
-			<select name="speaker" id="speakerList">
-				<option value="Ahd">Ahmed</option>
-				<option value="Mohmd">Mohamed</option>
-				<option value="Al">Ali</option>
-				<option value="Husin">Hussein</option>
-			</select>
-			
-						
-			<button id="updateSpeaker">Update Speaker</button>
-			<div id='updateCont'>
-				<input type="text" id="newSpeaker" placeholder="Type new speaker...">
-				<button id="executeUpdate">Update</button>
-			</div>
+			<textarea id="toxicity" placeholder="toxicity" cols="100" rows="15"></textarea> 
+			<br/><br/>	
 			
 		</div>
 	
