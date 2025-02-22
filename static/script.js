@@ -57,7 +57,7 @@ herbBtn.addEventListener('click', function(){
 			content += '<h3>Benefits of ' + data['res'][0][1]; 
 			content += ' (<i>' + data['res'][0][2] + '</i>)' + '</h3>';
 			
-			content += '<ul>';
+			content += '<ul class="list">';
 			for (var i=0; i < data['res'][0][3].length; i++) {
 				content += '<li>' + data['res'][0][3][i] + '</li>';
 			}
