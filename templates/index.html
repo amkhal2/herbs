@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Herbs Database</title>
+		<link rel="stylesheet" href='{{ url_for("static", filename="styles.css") }}'>
+	</head>
+
+	<body>
+		<div class='header'>
+			<a href='{{ url_for("index") }}'>100 Plants That Heal</a>
+			<a href='{{ url_for("herbs2") }}'>The New Healing Herbs - 135 Herbs</a>
+			<a href='{{ url_for("manage_record") }}'>Manage Record</a>
+		</div>
+		
+		<div class="container">
+			<h2>100 Plants That Heal</h2>
+			
+			<label for="herb">Herb Name</label>
+			<select name="herb" id="herb" >
+				<option value="herb1">Almond</option>
+				<option value="herb2">Celandine</option>
+				<option value="herb3">Lavender</option>
+				<option value="herb4">Rosemary</option>
+			</select>
+			
+			<button id="getHerb">Look-up!</button>
+				
+			<br/><br/>
+			
+			<div id='show_more'></div>
+			
+			<br/>
+			
+			<input type="text" id="search" placeholder="Search database...">
+					
+			<br/><br/>
+			<div id='msg'></div>
+		</div>
+		
+		
+		<script src='{{ url_for("static", filename="script.js") }}'></script>
+	</body>
+
+</html>

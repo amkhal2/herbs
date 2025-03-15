@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manage Records</title>
+		<link rel="stylesheet" href='{{ url_for("static", filename="styles.css") }}'>
+	</head>
+	
+	<body>
+		<div class='header'>
+			<a href='{{ url_for("index") }}'>100 Plants That Heal</a>
+			<a href='{{ url_for("herbs2") }}'>The New Healing Herbs - 135 Herbs</a>
+			<a href='{{ url_for("manage_record") }}'>Manage Record</a>
+		</div>
+						
+		<div class="container">
+			<input type="button" id="add" value="add">
+			<input type="button" id="find" value="find">
+			<input type="button" id="update" value="update">
+			<input type="button" id="clear" value="clear">
+			<br/><br/>
+			
+			<div id="msg"></div>
+			<br/>
+			
+			<input type = "text" id="db_id" placeholder="id"> 
+			<br/><br/>
+			<input type = "text" id="herbName" placeholder="Herb Name"> 
+			<br/><br/>
+			<input type = "text" id="binomialName" placeholder="Binomial Name"> 
+			<br/><br/>
+			<textarea id="benefits" placeholder="benefits" cols="100" rows="15"></textarea> 
+			<br/><br/>
+			<textarea id="toxicity" placeholder="toxicity" cols="100" rows="15"></textarea> 
+			<br/><br/>	
+			
+		</div>
+	
+		<script src="{{ url_for('static', filename='add_record.js') }}"></script>
+	</body>
+
+
+</html>
