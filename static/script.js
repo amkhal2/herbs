@@ -96,7 +96,7 @@ elSearch.addEventListener('keyup', function(){
 			
 			if (data['status'] === 'success') {
 				var content = '';
-				content += '<p id=\'resultCount\'>' + data['res'].length + ' results were found...</p>';
+				content += '<p id=\'resultCount\'>' + data['res'].length + ' herb(s) found...</p>';
 				content += '<table><tr> <th>Herb name</th> <th>Benefits</th> <th>Toxicity</th></tr>';
 				
 				for (var i=0; i < data['res'].length; i++){
@@ -164,7 +164,7 @@ msg.addEventListener('click', function(e){
 								content += '<h3>Benefits of ' + data['res'][0]; 
 								content += ' (<i>' + data['res'][1] + '</i>)' + '</h3>';
 								
-								content += '<ul>';
+								content += '<ul class="list">';
 								for (var i=0; i < data['res'][2].length; i++) {
 									content += '<li>' + data['res'][2][i] + '</li>';
 								}
