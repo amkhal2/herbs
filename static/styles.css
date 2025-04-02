@@ -1,9 +1,16 @@
 
+body, option, button, input, textarea {
+	font-family: cursive;
+}
 .searching {
 	background-color: green;
 }
 h2 {
 	text-align: center;
+}
+
+b {
+	color: #1653b5;
 }
 
 .list > li {    /* for the rule to work the list element <li> should be a direct child of the 
