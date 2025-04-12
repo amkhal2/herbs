@@ -4,6 +4,9 @@ var findButton = document.getElementById('find');
 var updateButton = document.getElementById('update');
 var clearButton = document.getElementById('clear');
 
+// database table selectbox
+var dbSelectBox = document.getElementById('dbTable');
+
 // Feedback message
 var msg = document.getElementById('msg');
 
@@ -57,7 +60,8 @@ addButton.addEventListener('click', function(){
 findButton.addEventListener('click', function(){
 		if(id.value.trim()) {
 			var toServer = JSON.stringify({ 'id': id.value.trim(),
-											"page": "record"
+											"page": "record",
+											'db': dbSelectBox.options[dbSelectBox.selectedIndex].textContent // selected db 
 									});
 			
 			// Make POST request to server to obtain data
@@ -90,6 +94,7 @@ findButton.addEventListener('click', function(){
 updateButton.addEventListener('click', function(){
 		if(id.value.trim() && herbName.value.trim() && binomialName.value.trim() && benefits.value.trim() && toxicity.value.trim()){
 				var toServer = JSON.stringify({
+					'db': dbSelectBox.options[dbSelectBox.selectedIndex].textContent, // selected db 
 					'id': id.value.trim(),
 					'herbName': herbName.value.trim(),
 					'binomialName': binomialName.value.trim(),

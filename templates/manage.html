@@ -9,10 +9,12 @@
 		<div class='header'>
 			<a href='{{ url_for("index") }}'>100 Plants That Heal</a>
 			<a href='{{ url_for("herbs2") }}'>The New Healing Herbs - 135 Herbs</a>
+			<a href='{{ url_for("healing_properties") }}'>Healing Properties</a>
+			<a href='{{ url_for("usage") }}'>How to Use Herbs</a>
 			<a href='{{ url_for("manage_record") }}'>Manage Record</a>
 		</div>
 						
-		<div class="container">
+		<div class="container">			
 			<input type="button" id="add" value="add">
 			<input type="button" id="find" value="find">
 			<input type="button" id="update" value="update">
@@ -22,6 +24,11 @@
 			<div id="msg"></div>
 			<br/>
 			
+			<select name="dbTable" id="dbTable" >
+				<option value="db1">100 herbs</option>
+				<option value="db2">135 herbs</option>
+			</select>
+			<br/><br/>
 			<input type = "text" id="db_id" placeholder="id"> 
 			<br/><br/>
 			<input type = "text" id="herbName" placeholder="Herb Name"> 

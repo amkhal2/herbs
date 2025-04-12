@@ -64,6 +64,16 @@ def herbs2():
 def manage_record():
     # Manage Record page
     return render_template('manage.html')
+
+@app.route("/properties")
+def healing_properties():
+    # Healing Properties page
+    return render_template('properties.html')
+    
+@app.route("/usage")
+def usage():
+    # How to use the herbs page
+    return render_template('usage.html')
     
 
 @app.route("/add_record", methods=['POST'])
@@ -152,9 +162,13 @@ def show_more():
     if page == 'herb2':
         result = Plants.query.filter_by(id=db_id).first()    # lookup "Plants" db table
         to_client = [result.plant_name, result.binomial_name, result.benefits.split('\n'), result.toxicity.split('\n'), result.id] 
-    if page == "record":
-        result = Plants.query.filter_by(id=db_id).first()    # lookup "Plants" db table
-        to_client = [result.plant_name, result.binomial_name, result.benefits, result.toxicity, result.id] 
+    if page == "record": ## the database selectBox 
+        if data['db'] == '135 herbs':      
+            result = Plants.query.filter_by(id=db_id).first()    # lookup "Plants" db table
+            to_client = [result.plant_name, result.binomial_name, result.benefits, result.toxicity, result.id] 
+        if data['db'] == '100 herbs':
+            result = Herbs.query.filter_by(id=db_id).first()    # lookup "Plants" db table
+            to_client = [result.plant_name, result.binomial_name, result.benefits, result.toxicity, result.id] 
         
     return jsonify({'res': to_client})
 
@@ -163,8 +177,8 @@ def show_more():
 @app.route('/selectBox') 
 def selectBox():
     # when page loads, get items for Herb Name selectbox
-    herbs = db.engine.execute('select plant_name, count(*) from Herbs group by plant_name order by count(*)')
-    herbs = [i[0] for i in herbs]
+    herbs = db.engine.execute('select plant_name, id from Herbs group by plant_name order by id ASC')
+    herbs = [f'{i[1]} {i[0]}' for i in herbs]
     
     return jsonify({
             'herbs': herbs,
@@ -173,8 +187,8 @@ def selectBox():
 @app.route('/selectBox2') 
 def selectBox2(): # This function is for "The New Healing Herbs" selectbox 
     # when page loads, get items for Herb Name selectbox
-    herbs = db.engine.execute('select plant_name, count(*) from Plants group by plant_name order by count(*)')
-    herbs = [i[0] for i in herbs]
+    herbs = db.engine.execute('select plant_name, id from Plants group by plant_name order by id ASC')
+    herbs = [f'{i[1]} {i[0]}' for i in herbs]
     
     return jsonify({
             'herbs': herbs,
@@ -186,7 +200,7 @@ def search_selectbox():  # this will fire when clicking either of "See more" but
     data = request.get_json()
     
     if data['herb'] and data['page'] == 'herbs2':
-        results = Plants.query.filter_by(plant_name = data['herb']).all()
+        results = Plants.query.filter_by(id = data['herb'].split(' ')[0]).all()
         
         res = [[i.id, i.plant_name, i.binomial_name, i.benefits.split('\n'), i.toxicity.split('\n')] for i in results]
         
@@ -194,7 +208,7 @@ def search_selectbox():  # this will fire when clicking either of "See more" but
                 'res': res
                 }) 
     else:
-        results = Herbs.query.filter_by(plant_name = data['herb']).all()
+        results = Herbs.query.filter_by(id = data['herb'].split(' ')[0]).all()
         
         res = [[i.id, i.plant_name, i.binomial_name, i.benefits.split('\n'), i.toxicity] for i in results]
         
@@ -209,15 +223,19 @@ def update_record():
     # when clicking "update" button
     data = request.get_json()
     
+    
     id = data['id']
     plant_name = data['herbName']
     binomial_name = data['binomialName']
     benefits = data['benefits']
     toxicity = data['toxicity']
     
-    db.engine.execute('update Plants set plant_name = ?, binomial_name = ?, benefits = ?, toxicity = ? where id = ?',
+    if data['db'] == '135 herbs': # update the second database (135 herbs)
+        db.engine.execute('update Plants set plant_name = ?, binomial_name = ?, benefits = ?, toxicity = ? where id = ?',
                             (plant_name, binomial_name, benefits, toxicity, id))
-    
+    if data['db'] == '100 herbs': # update the first database (100 herbs)
+        db.engine.execute('update Herbs set plant_name = ?, binomial_name = ?, benefits = ?, toxicity = ? where id = ?',
+                            (plant_name, binomial_name, benefits, toxicity, id))
     return jsonify({
         'res': 'Record updated Successfully!'
          })
